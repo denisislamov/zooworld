@@ -3,6 +3,12 @@ namespace ZooWorld.Core.Interfaces
 {
    public interface IInteractable
    {
-      void Interact(IInteractable interactable);
+      enum InteractionType
+      {
+         None,
+         Collider,
+         Trigger
+      }
+      void Interact(IInteractable interactable, InteractionType interactionType = InteractionType.None);
    }
 }

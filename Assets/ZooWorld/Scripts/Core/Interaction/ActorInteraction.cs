@@ -9,10 +9,19 @@ namespace ZooWorld.Core
         {
             if (collision.gameObject.TryGetComponent(out IInteractable interactable))
             {
-                Interact(interactable);
+                Interact(interactable, IInteractable.InteractionType.Collider);
+            }
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IInteractable interactable))
+            {
+                Interact(interactable,  IInteractable.InteractionType.Trigger);
             }
         }
 
-        public abstract void Interact(IInteractable interactable);
+        public abstract void Interact(IInteractable interactable, 
+            IInteractable.InteractionType interactionType = IInteractable.InteractionType.None);
     }
 }

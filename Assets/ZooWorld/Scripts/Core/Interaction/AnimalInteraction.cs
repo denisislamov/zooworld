@@ -1,12 +1,32 @@
+using System;
+using UnityEngine;
 using ZooWorld.Core.Interfaces;
 
 namespace ZooWorld.Core
 {
     public class AnimalInteraction : ActorInteraction
     {
-        public override void Interact(IInteractable interactable)
+        private Rigidbody _rigidbody;
+        public Rigidbody Rigidbody => _rigidbody;
+        
+        private Collider _collider;
+        public Collider Collider => _collider;
+        
+        private void Awake()
         {
-            if (interactable is not AnimalInteraction || !gameObject.CompareTag(Constants.PredatorTag))
+            _rigidbody = GetComponent<Rigidbody>();
+            _collider = GetComponent<Collider>();
+        }
+
+        public override void Interact(IInteractable interactable, IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
+        {
+            if (interactionType != IInteractable.InteractionType.Collider)
+            {
+                return;
+            }
+            
+            if (interactable is not AnimalInteraction || 
+                !gameObject.CompareTag(Constants.PredatorTag))
             {
                 return;
             }

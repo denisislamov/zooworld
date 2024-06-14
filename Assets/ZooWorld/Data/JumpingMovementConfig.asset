@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: JumpingMovementConfig
   m_EditorClassIdentifier: 
   _distance: 4
-  _pauseBetweenJumps: 4
+  _pauseBetweenJumps: 2
