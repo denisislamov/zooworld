@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimalConfigs:
   - Name: Frog
-    Type: 1
-    MovementPrefab: {fileID: 7871151866047415118, guid: c5d5d2762279a425881571e5fc45bc82, type: 3}
+    Type: 0
     ActorMovementConfig: {fileID: 11400000, guid: d31b159fdccc3471dba055d7be8a2794, type: 2}
     Color: {r: 0.0047169924, g: 0.25682664, b: 1, a: 1}
   - Name: Snake
-    Type: 2
-    MovementPrefab: {fileID: 2541173415091145452, guid: 8d99b08df5560462982666e878a40e4f, type: 3}
+    Type: 1
     ActorMovementConfig: {fileID: 11400000, guid: b7ebe5781fd0742a1b9a8214d233e6c0, type: 2}
     Color: {r: 0.7924528, g: 0.16628821, b: 0, a: 1}
+  JumpMovementPrefab: {fileID: 8428960809706227136, guid: c5d5d2762279a425881571e5fc45bc82, type: 3}
+  LinearMovementPrefab: {fileID: 4199741323814593731, guid: 8d99b08df5560462982666e878a40e4f, type: 3}

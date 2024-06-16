@@ -12,21 +12,25 @@ namespace ZooWorld.Core
         private AnimalConfigList _animalConfigs;
 
         private ActorMovement<ActorMovementConfig>.CustomDiFactory _actorMovementsFactory;
+        private AnimalManagerConfig _animalManagerConfig;
         
         [Inject]
-        public void Init(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, AnimalConfigList animalConfigs)
+        public void Init(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, 
+            AnimalManagerConfig animalManagerConfig, AnimalConfigList animalConfigs)
         {
             _actorMovementsFactory = actorMovementsFactory;
+            _animalManagerConfig = animalManagerConfig;
             _animalConfigs = animalConfigs;
         }
         
         public IEnumerable<ActorMovement<ActorMovementConfig>> ActorMovements => _actorMovements;
 
-        public void Update()
+        public void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            var count = _animalManagerConfig.MaxAnimalCount;
+            for (int i = 0; i < count; i++)
             {
-                Spawn(0);
+                Spawn(Random.Range(0, _animalConfigs.AnimalConfigs.Count));
             }
         }
         
@@ -49,6 +53,15 @@ namespace ZooWorld.Core
             }
             
             actorMovement.SetConfig(animalConfig.ActorMovementConfig);
+            
+            var radius = _animalManagerConfig.SpawnRadius;
+            var height = _animalManagerConfig.SpawnHeight;
+            
+            // TODO - to avoid initial collisions you can either save these positions
+            // or disable collisions for 1-2 seconds after spawn
+            actorMovement.gameObject.transform.position = 
+                new Vector3(Random.Range(-radius, radius), height, Random.Range(-radius, radius));
+            actorMovement.gameObject.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             
             actorMovement.gameObject.tag = animalConfig.Type switch
             {

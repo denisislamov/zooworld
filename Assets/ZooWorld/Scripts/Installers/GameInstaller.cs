@@ -17,10 +17,10 @@ namespace ZooWorld.Installers
             
             Container.Bind<ActorMovement<ActorMovementConfig>.CustomDiFactory>().AsSingle();
             Container.Bind<UnityEngine.Object>()
-                .FromInstance(_settings.JumpMovementPrefab)
+                .FromInstance(_settings.AnimalConfigList.JumpMovementPrefab)
                 .WhenInjectedInto<ActorMovement<ActorMovementConfig>.CustomDiFactory>();
             Container.Bind<UnityEngine.Object>()
-                .FromInstance(_settings.LinearMovementPrefab)
+                .FromInstance(_settings.AnimalConfigList.LinearMovementPrefab)
                 .WhenInjectedInto<ActorMovement<ActorMovementConfig>.CustomDiFactory>();
         }
     }
@@ -32,7 +32,7 @@ namespace ZooWorld.Installers
         [SerializeField] private AnimalConfigList _animalConfigList;
         public AnimalConfigList AnimalConfigList => _animalConfigList;
         
-        public JumpMovement JumpMovementPrefab;
-        public LinearMovement LinearMovementPrefab;
+        [SerializeField] private AnimalManagerConfig _animalManagerConfig;
+        public AnimalManagerConfig AnimalManagerConfig => _animalManagerConfig;
     }
 }

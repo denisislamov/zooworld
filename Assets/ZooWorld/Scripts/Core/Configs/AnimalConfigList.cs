@@ -8,5 +8,8 @@ namespace ZooWorld.Core.Configs
     public class AnimalConfigList : ScriptableObject
     {
         public List<AnimalConfig> AnimalConfigs;
+        
+        public JumpMovement JumpMovementPrefab;
+        public LinearMovement LinearMovementPrefab;
     }
 }

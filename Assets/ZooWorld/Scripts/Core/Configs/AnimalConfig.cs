@@ -13,14 +13,11 @@ namespace ZooWorld.Core
         public string Name;
         public enum AnimalType
         {
-            None,
             Pray,
             Predator
         }
         
         public AnimalType Type;
-        public GameObject MovementPrefab;
         public ActorMovementConfig ActorMovementConfig;
-        public Color Color;
     }
 }

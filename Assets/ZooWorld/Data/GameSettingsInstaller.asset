@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameSettings:
     _animalConfigList: {fileID: 11400000, guid: 0be1a2a97c0814f458e4f72e0f7f792f, type: 2}
-    JumpMovementPrefab: {fileID: 8428960809706227136, guid: c5d5d2762279a425881571e5fc45bc82, type: 3}
-    LinearMovementPrefab: {fileID: 4199741323814593731, guid: 8d99b08df5560462982666e878a40e4f, type: 3}
+    _animalManagerConfig: {fileID: 11400000, guid: 5cc5798c7a2bf489ca7445787690c940, type: 2}
