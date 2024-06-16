@@ -28,7 +28,7 @@ namespace ZooWorld.Core
         public abstract void Move();
         
         
-        public abstract class CustomDiFactory 
+        public class CustomDiFactory 
         {
             private readonly DiContainer _container;
             private readonly List<Object> _prefabs;

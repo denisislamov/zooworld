@@ -1,11 +1,18 @@
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/GameSettingsInstaller")]
-public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
+namespace ZooWorld.Installers
 {
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/GameSettingsInstaller")]
+    public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
+        [SerializeField] private GameSettings _gameSettings;
         
+        public override void InstallBindings()
+        {
+            Container.BindInstance(_gameSettings).AsSingle();
+            Container.BindInstance(_gameSettings.AnimalConfigList).AsSingle();
+        }
+
     }
 }

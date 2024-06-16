@@ -22,22 +22,5 @@ namespace ZooWorld.Core
         public GameObject MovementPrefab;
         public ActorMovementConfig ActorMovementConfig;
         public Color Color;
-        
-        public void Init()
-        {
-            var go = GameObject.Instantiate(MovementPrefab.gameObject);
-            var actorMovement = go.GetComponent<ActorMovement<ActorMovementConfig>>();
-            actorMovement.SetConfig(ActorMovementConfig);
-
-            actorMovement.gameObject.tag = Type switch
-            {
-                AnimalType.Pray => Constants.PreyTag,
-                AnimalType.Predator => Constants.PredatorTag,
-                _ => actorMovement.gameObject.tag
-            };
-            
-            go.AddComponent<AnimalInteraction>();
-            
-        }
     }
 }
