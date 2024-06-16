@@ -3,14 +3,19 @@ using UnityEngine;
 
 namespace ZooWorld.Core
 {
-    public static class InteractionsSystem
+    public class InteractionsSystem : IInteractionsSystem
     {
-        private static readonly HashSet<GameObject> AlreadyMarkedForDestroy = new();
-        
-        public static bool IsAlreadyInteracted(GameObject srcGameObject, ActorInteraction animalInteraction)
+        private readonly HashSet<GameObject> AlreadyMarkedForDestroy = new();
+
+        public bool IsAlreadyInteracted(GameObject srcGameObject, ActorInteraction animalInteraction)
         {
             return AlreadyMarkedForDestroy.Contains(srcGameObject) || 
                    !AlreadyMarkedForDestroy.Add(animalInteraction.gameObject);
         }
+    }
+
+    public interface IInteractionsSystem
+    {
+        public bool IsAlreadyInteracted(GameObject srcGameObject, ActorInteraction animalInteraction);
     }
 }

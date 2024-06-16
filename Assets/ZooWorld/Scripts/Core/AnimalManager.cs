@@ -14,13 +14,17 @@ namespace ZooWorld.Core
         private ActorMovement<ActorMovementConfig>.CustomDiFactory _actorMovementsFactory;
         private AnimalManagerConfig _animalManagerConfig;
         
+        private ActorInteraction.Factory _actorInteractionFactory;
+        
         [Inject]
-        public void Init(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, 
-            AnimalManagerConfig animalManagerConfig, AnimalConfigList animalConfigs)
+        public void Construct(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, 
+            AnimalManagerConfig animalManagerConfig, AnimalConfigList animalConfigs, 
+            ActorInteraction.Factory actorInteractionFactory)
         {
             _actorMovementsFactory = actorMovementsFactory;
             _animalManagerConfig = animalManagerConfig;
             _animalConfigs = animalConfigs;
+            _actorInteractionFactory = actorInteractionFactory;
         }
         
         public IEnumerable<ActorMovement<ActorMovementConfig>> ActorMovements => _actorMovements;
@@ -56,7 +60,6 @@ namespace ZooWorld.Core
             
             var radius = _animalManagerConfig.SpawnRadius;
             var height = _animalManagerConfig.SpawnHeight;
-            
             // TODO - to avoid initial collisions you can either save these positions
             // or disable collisions for 1-2 seconds after spawn
             actorMovement.gameObject.transform.position = 
@@ -69,8 +72,8 @@ namespace ZooWorld.Core
                 AnimalConfig.AnimalType.Predator => Constants.PredatorTag,
                 _ => actorMovement.gameObject.tag
             };
+            _actorInteractionFactory.Create<AnimalInteraction>(actorMovement.gameObject);
             
-            actorMovement.gameObject.AddComponent<AnimalInteraction>();
             _actorMovements.Add(actorMovement);
         }
     }

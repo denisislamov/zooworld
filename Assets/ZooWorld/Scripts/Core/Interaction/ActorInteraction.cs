@@ -1,9 +1,10 @@
 using ZooWorld.Core.Interfaces;
 using UnityEngine;
+using Zenject;
 
 namespace ZooWorld.Core
 {
-    public abstract class ActorInteraction : MonoBehaviour, IInteractable
+    public class ActorInteraction : MonoBehaviour, IInteractable
     {
         public event System.Action<IInteractable, IInteractable.InteractionType> OnInteract = (_, _) => { };
         
@@ -29,7 +30,24 @@ namespace ZooWorld.Core
             OnInteract(interactable, IInteractable.InteractionType.Collider);
         }
 
-        public abstract void Interact(IInteractable interactable, 
-            IInteractable.InteractionType interactionType = IInteractable.InteractionType.None);
+        public virtual void Interact(IInteractable interactable,
+            IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
+        {
+        }
+
+        public class Factory : PlaceholderFactory<ActorInteraction>
+        {
+            readonly DiContainer _container;
+
+            public Factory(DiContainer container)
+            {
+                _container = container;
+            }
+            
+            public ActorInteraction Create<T>(GameObject prefab) where T : ActorInteraction
+            {
+                return _container.InstantiateComponent<T>(prefab);
+            }
+        }
     }
 }

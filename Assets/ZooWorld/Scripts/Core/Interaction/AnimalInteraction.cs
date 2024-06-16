@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 using ZooWorld.Core.Interfaces;
 
 namespace ZooWorld.Core
@@ -12,6 +13,14 @@ namespace ZooWorld.Core
         private Collider _collider;
         public Collider Collider => _collider;
         
+        private IInteractionsSystem _interactionsSystem;
+
+        [Inject]
+        public void Construct(IInteractionsSystem interactionsSystem)
+        {
+            _interactionsSystem = interactionsSystem;
+        }
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -41,7 +50,7 @@ namespace ZooWorld.Core
             
             if (actorInteraction.gameObject.CompareTag(Constants.PredatorTag))
             {
-                if (InteractionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
+                if (_interactionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
                 {
                     actorInteraction.gameObject.SetActive(false);
                 }
