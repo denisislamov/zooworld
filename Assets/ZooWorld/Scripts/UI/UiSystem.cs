@@ -1,18 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using ZooWorld.Core;
 
-public class UiSystem : MonoBehaviour
+namespace ZooWorld.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public class UiSystem
     {
-        
-    }
+        private HashSet<ActorUiPresenter> actorUiPresenters = new();
+        public ActorUiView CreateActorUIView(GameObject target, ActorInteraction actorInteraction, TMP_Text text)
+        {
+            var actorUiView = target.AddComponent<ActorUiView>();
+            
+            if (actorUiView == null)
+            {
+                return null;
+            }
+            
+            actorUiView.Init(actorInteraction, text);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            var actorUiPresenter = new ActorUiPresenter(actorUiView);
+            actorUiPresenter.RegisterEvents();
+
+            actorUiPresenters.Add(actorUiPresenter);
+            
+            return actorUiView;
+        }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZooWorld.Core
 {
-    public class JumpMovement : ActorMovement<Configs.JumpingMovementConfig>
+    public class JumpMovement : ActorMovement<Configs.ActorMovementConfig>
     {
         private float _distance = 2.0f;
         private float _pauseBetweenJumps = 2.0f;
@@ -17,8 +17,13 @@ namespace ZooWorld.Core
         protected override void Awake()
         {
             base.Awake();
-            _distance = Config.Distance;
-            _pauseBetweenJumps = Config.PauseBetweenJumps;
+            
+            if (Config is Configs.JumpingMovementConfig jumpConfig)
+            {
+                _distance = jumpConfig.Distance;
+                _pauseBetweenJumps = jumpConfig.PauseBetweenJumps;
+            }
+            
             _elapsedTimeToJump = _pauseBetweenJumps;
         }
         
@@ -41,7 +46,7 @@ namespace ZooWorld.Core
                     return;
                 }
 
-                if (!isGrounded())
+                if (!IsGrounded())
                 {
                     return;
                 }
@@ -67,6 +72,7 @@ namespace ZooWorld.Core
             float yOffset = transform.position.y - target.y;
             float initialVelocity = 1 / Mathf.Cos(angle) * Mathf.Sqrt(0.5f * gravity * Mathf.Pow(distance, 2) /
                                                                       (distance * Mathf.Tan(angle) + yOffset));
+            
             Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
             float angleBetweenObjects = Vector3.Angle(Vector3.forward, planarTarget - planarPosition);
             Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
@@ -74,6 +80,6 @@ namespace ZooWorld.Core
             CurrentRigidbody.AddForce(finalVelocity * CurrentRigidbody.mass, ForceMode.Impulse);
         }
         
-        private bool isGrounded() => Physics.Raycast(transform.position, Vector3.down, 0.5f);
+        private bool IsGrounded() => Physics.Raycast(transform.position, Vector3.down, 0.5f);
     }
 }

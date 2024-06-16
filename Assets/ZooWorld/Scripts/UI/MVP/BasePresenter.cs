@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace ZooWorld.UI
 {
-    public abstract class BasePresenter
+    public abstract class BasePresenter<T, V>  where T : BaseView where V : BaseModel
     {
-        public BaseView View { get; private set; }
-        public BaseModel Model { get; private set; }
+        public T View { get; private set; }
+        public V Model { get; private set; }
 
-        public BasePresenter(BaseView view, BaseModel model)
+        public BasePresenter(T view, V model)
         {
             View = view;
             Model = model;

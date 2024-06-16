@@ -12,6 +12,12 @@ namespace ZooWorld.UI
         [SerializeField] protected ActorInteraction ActorInteraction;
         [SerializeField] protected TMP_Text Text;
         
+        public void Init(ActorInteraction actorInteraction, TMP_Text text)
+        {
+            ActorInteraction = actorInteraction;
+            Text = text;
+        }
+        
         public event Action OnActorInteraction = () => { };
         
         private void Awake()

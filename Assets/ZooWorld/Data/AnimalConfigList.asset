@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc8c0dddcf874a76aa4124c8544ec74, type: 3}
+  m_Name: AnimalConfigList
+  m_EditorClassIdentifier: 
+  AnimalConfigs:
+  - Name: Frog
+    Type: 1
+    MovementPrefab: {fileID: 7871151866047415118, guid: c5d5d2762279a425881571e5fc45bc82, type: 3}
+    ActorMovementConfig: {fileID: 11400000, guid: d31b159fdccc3471dba055d7be8a2794, type: 2}
+    Color: {r: 0.0047169924, g: 0.25682664, b: 1, a: 1}
+  - Name: Snake
+    Type: 2
+    MovementPrefab: {fileID: 2541173415091145452, guid: 8d99b08df5560462982666e878a40e4f, type: 3}
+    ActorMovementConfig: {fileID: 11400000, guid: b7ebe5781fd0742a1b9a8214d233e6c0, type: 2}
+    Color: {r: 0.7924528, g: 0.16628821, b: 0, a: 1}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZooWorld.Core
 {
-    public class LinearMovement : ActorMovement<Configs.LinearMovementConfig>
+    public class LinearMovement : ActorMovement<Configs.ActorMovementConfig>
     {
         private float _speed = 1.0f;
         
@@ -15,7 +15,11 @@ namespace ZooWorld.Core
         protected override void Awake()
         {
             base.Awake();
-            _speed = Config.Speed;
+
+            if (Config is Configs.LinearMovementConfig linearConfig)
+            {
+                _speed = linearConfig.Speed;
+            }
         }
         
         public override void Move()
