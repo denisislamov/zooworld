@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ZooWorld.Core.Configs
 {
-    [CreateAssetMenu(fileName = "AnimalConfigList", menuName = "Configs/AnimalConfigList", order = 1)]
+    [CreateAssetMenu(fileName = "AnimalConfigList", menuName = "ZooWorld/AnimalConfigList", order = 1)]
     public class AnimalConfigList : ScriptableObject
     {
         public List<AnimalConfig> AnimalConfigs;

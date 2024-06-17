@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using ZooWorld.Core;
-using ZooWorld.Core.Interfaces;
-using ZooWorld.UI;
 
 namespace ZooWorld.UI
 {
     public class MainUiPresenter : BasePresenter<MainUiView, MainUiModel>
     {
-        [Inject] private readonly IInteractionsSystem _interactionsSystem;
+        [Inject] private readonly InteractionsSystem _interactionsSystem;
 
         public MainUiPresenter(MainUiView view, MainUiModel model) : base(view, model) { }
 

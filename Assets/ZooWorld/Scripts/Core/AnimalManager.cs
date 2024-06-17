@@ -6,7 +6,6 @@ using ZooWorld.UI;
 
 namespace ZooWorld.Core
 {
-    // TODO - to animal manager
     public class AnimalManager : MonoBehaviour
     {
         private readonly List<ActorMovement<ActorMovementConfig>> _actorMovements = new();
@@ -29,8 +28,6 @@ namespace ZooWorld.Core
             _actorInteractionFactory = actorInteractionFactory;
             _uiSystem = uiSystem;
         }
-        
-        public IEnumerable<ActorMovement<ActorMovementConfig>> ActorMovements => _actorMovements;
 
         public void Start()
         {
@@ -63,12 +60,13 @@ namespace ZooWorld.Core
             
             actorMovement.SetConfig(animalConfig.ActorMovementConfig);
             
-            var radius = _animalManagerConfig.SpawnRadius;
+            var boxSize = _animalManagerConfig.SpawnBoxSize;
             var height = _animalManagerConfig.SpawnHeight;
+            
             // TODO - to avoid initial collisions you can either save these positions
             // or disable collisions for 1-2 seconds after spawn
             actorMovement.gameObject.transform.position = 
-                new Vector3(Random.Range(-radius, radius), height, Random.Range(-radius, radius));
+                new Vector3(Random.Range(-boxSize, boxSize), height, Random.Range(-boxSize, boxSize));
             actorMovement.gameObject.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             
             actorMovement.gameObject.tag = animalConfig.Type switch

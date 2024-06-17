@@ -13,10 +13,10 @@ namespace ZooWorld.Core
         private Collider _collider;
         public Collider Collider => _collider;
         
-        private IInteractionsSystem _interactionsSystem;
+        private InteractionsSystem _interactionsSystem;
 
         [Inject]
-        public void Construct(IInteractionsSystem interactionsSystem)
+        public void Construct(InteractionsSystem interactionsSystem)
         {
             _interactionsSystem = interactionsSystem;
         }
@@ -27,36 +27,32 @@ namespace ZooWorld.Core
             _collider = GetComponent<Collider>();
         }
 
-        public override void Interact(IInteractable interactable, IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
+        public override void Interact(IInteractable interactable, 
+            IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
         {
-            if (interactionType != IInteractable.InteractionType.Collider)
-            {
-                return;
-            }
-            
-            if (interactable is not AnimalInteraction || 
+            if (interactionType != IInteractable.InteractionType.Collider ||
+                interactable is not AnimalInteraction || 
                 !gameObject.CompareTag(Constants.PredatorTag))
             {
                 return;
             }
             
             var actorInteraction = (ActorInteraction)interactable;
-            
             if (actorInteraction.gameObject.CompareTag(Constants.PreyTag))
             {
                 actorInteraction.gameObject.SetActive(false);
                 InteractionsSystem.InvokeOnDisableGo(actorInteraction.gameObject);
                 return;
             }
-            
-            if (actorInteraction.gameObject.CompareTag(Constants.PredatorTag))
+
+            if (!actorInteraction.gameObject.CompareTag(Constants.PredatorTag) ||
+                _interactionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
             {
-                if (!_interactionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
-                {
-                    actorInteraction.gameObject.SetActive(false);
-                    InteractionsSystem.InvokeOnDisableGo(actorInteraction.gameObject);
-                }
+                return;
             }
+            
+            actorInteraction.gameObject.SetActive(false);
+            InteractionsSystem.InvokeOnDisableGo(actorInteraction.gameObject);
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZooWorld.Core.Configs
 {
-    [CreateAssetMenu(fileName = "JumpingMovementConfig", menuName = "Configs/JumpingMovementConfig")]
+    [CreateAssetMenu(fileName = "JumpingMovementConfig", menuName = "ZooWorld/JumpingMovementConfig")]
     public class JumpingMovementConfig : ActorMovementConfig
     {
         [SerializeField] private float _distance;

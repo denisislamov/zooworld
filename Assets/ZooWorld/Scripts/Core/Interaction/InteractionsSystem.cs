@@ -4,11 +4,10 @@ using ZooWorld.Core.Interfaces;
 
 namespace ZooWorld.Core
 {
-    public class InteractionsSystem : IInteractionsSystem
+    public class InteractionsSystem
     {
         public event System.Action<GameObject> OnDisableGo = _ => { };
-        
-        private readonly HashSet<GameObject> AlreadyMarkedForDestroy = new();
+        private readonly HashSet<GameObject> _alreadyMarkedForDestroy = new();
 
         public void InvokeOnDisableGo(GameObject value)
         {
@@ -17,16 +16,8 @@ namespace ZooWorld.Core
 
         public bool IsAlreadyInteracted(GameObject srcGameObject, ActorInteraction animalInteraction)
         {
-            return AlreadyMarkedForDestroy.Contains(srcGameObject) || 
-                   !AlreadyMarkedForDestroy.Add(animalInteraction.gameObject);
+            return _alreadyMarkedForDestroy.Contains(srcGameObject) || 
+                   !_alreadyMarkedForDestroy.Add(animalInteraction.gameObject);
         }
-    }
-
-    public interface IInteractionsSystem
-    {
-        public event System.Action<GameObject> OnDisableGo;
-        public void InvokeOnDisableGo(GameObject value);
-        
-        public bool IsAlreadyInteracted(GameObject srcGameObject, ActorInteraction animalInteraction);
     }
 }

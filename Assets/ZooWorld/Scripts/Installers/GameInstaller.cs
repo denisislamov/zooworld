@@ -1,5 +1,3 @@
-using System;
-using UnityEngine;
 using Zenject;
 using ZooWorld.Core;
 using ZooWorld.Core.Configs;
@@ -14,11 +12,20 @@ namespace ZooWorld.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<UiSystem>().AsSingle().NonLazy();
-            Container.Bind<IInteractionsSystem>().To<InteractionsSystem>().AsSingle().NonLazy();
-            
+            InteractionsBinding();
+            AnimalActorBinding();
+            UiBinding();
+        }
+
+        private void InteractionsBinding()
+        {
+            Container.BindInterfacesAndSelfTo<InteractionsSystem>().AsSingle().NonLazy();
+            Container.BindFactory<ActorInteraction, ActorInteraction.Factory>();
+        }
+
+        private void AnimalActorBinding()
+        {
             Container.BindInterfacesAndSelfTo<AnimalManager>().FromInstance(_animalManager).AsSingle();
-            
             Container.Bind<ActorMovement<ActorMovementConfig>.CustomDiFactory>().AsSingle();
             Container.Bind<UnityEngine.Object>()
                 .FromInstance(_settings.AnimalConfigList.JumpMovementPrefab)
@@ -26,20 +33,12 @@ namespace ZooWorld.Installers
             Container.Bind<UnityEngine.Object>()
                 .FromInstance(_settings.AnimalConfigList.LinearMovementPrefab)
                 .WhenInjectedInto<ActorMovement<ActorMovementConfig>.CustomDiFactory>();
+        }
 
-            Container.BindFactory<ActorInteraction, ActorInteraction.Factory>();
+        private void UiBinding()
+        {
+            Container.BindInterfacesAndSelfTo<UiSystem>().AsSingle().NonLazy();
             Container.BindFactory<MainUiView, MainUiModel, MainUiPresenter, MainUiPresenter.Factory>();
         }
-    }
-    
-    
-    [Serializable]
-    public class GameSettings
-    {
-        [SerializeField] private AnimalConfigList _animalConfigList;
-        public AnimalConfigList AnimalConfigList => _animalConfigList;
-        
-        [SerializeField] private AnimalManagerConfig _animalManagerConfig;
-        public AnimalManagerConfig AnimalManagerConfig => _animalManagerConfig;
     }
 }

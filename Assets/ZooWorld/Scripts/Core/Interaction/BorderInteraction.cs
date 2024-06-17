@@ -34,8 +34,6 @@ namespace ZooWorld.Core
             var boundsSize = actorInteraction.Collider.bounds.size;
             var maxSize = Mathf.Max(Mathf.Max(boundsSize.x, boundsSize.y), boundsSize.z);
             
-            Debug.Log($"Position: {position}, Bounds size: {boundsSize}");
-            
             actorRigidbody.position = _borderType switch
             {
                 BorderType.X => new Vector3(-(position.x - Mathf.Sign(position.x) * maxSize), position.y, position.z),
