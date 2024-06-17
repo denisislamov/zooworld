@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using ZooWorld.Core.Configs;
@@ -13,29 +14,31 @@ namespace ZooWorld.Core
         private AnimalConfigList _animalConfigs;
 
         private ActorMovement<ActorMovementConfig>.CustomDiFactory _actorMovementsFactory;
-        private AnimalManagerConfig _animalManagerConfig;
+        private AnimalSpawnConfig _animalSpawnConfig;
         
         private ActorInteraction.Factory _actorInteractionFactory;
         private UiSystem _uiSystem;
         
         [Inject]
         public void Construct(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, 
-            AnimalManagerConfig animalManagerConfig, AnimalConfigList animalConfigs, 
+            AnimalSpawnConfig animalSpawnConfig, AnimalConfigList animalConfigs, 
             ActorInteraction.Factory actorInteractionFactory, UiSystem uiSystem)
         {
             _actorMovementsFactory = actorMovementsFactory;
-            _animalManagerConfig = animalManagerConfig;
+            _animalSpawnConfig = animalSpawnConfig;
             _animalConfigs = animalConfigs;
             _actorInteractionFactory = actorInteractionFactory;
             _uiSystem = uiSystem;
         }
 
-        public void SpawnAll()
+        public async UniTask SpawnAll()
         {
-            var count = _animalManagerConfig.MaxAnimalCount;
+            var count = _animalSpawnConfig.MaxAnimalCount;
             for (int i = 0; i < count; i++)
             {
                 Spawn(Random.Range(0, _animalConfigs.AnimalConfigs.Count));
+                var delay = (int) Random.Range(_animalSpawnConfig.SpawnInterval.x, _animalSpawnConfig.SpawnInterval.y);
+                await UniTask.Delay(delay);
             }
         }
 
@@ -59,8 +62,8 @@ namespace ZooWorld.Core
             
             actorMovement.SetConfig(animalConfig.ActorMovementConfig);
             
-            var boxSize = _animalManagerConfig.SpawnBoxSize;
-            var height = _animalManagerConfig.SpawnHeight;
+            var boxSize = _animalSpawnConfig.SpawnBoxSize;
+            var height = _animalSpawnConfig.SpawnHeight;
             
             // TODO - to avoid initial collisions you can either save these positions
             // or disable collisions for 1-2 seconds after spawn

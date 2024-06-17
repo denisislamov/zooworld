@@ -14,7 +14,7 @@ namespace ZooWorld.Installers
         {
             Container.BindInstance(_gameSettings).AsSingle();
             Container.BindInstance(_gameSettings.AnimalConfigList).AsSingle();
-            Container.BindInstance(_gameSettings.AnimalManagerConfig).AsSingle();
+            Container.BindInstance(_gameSettings.AnimalSpawnConfig).AsSingle();
             Container.BindInstance(_uiSystemSettings).AsSingle();
         }
     }

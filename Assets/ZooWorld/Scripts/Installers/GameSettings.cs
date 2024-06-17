@@ -11,7 +11,7 @@ namespace ZooWorld.Installers
         [SerializeField] private AnimalConfigList _animalConfigList;
         public AnimalConfigList AnimalConfigList => _animalConfigList;
         
-        [SerializeField] private AnimalManagerConfig _animalManagerConfig;
-        public AnimalManagerConfig AnimalManagerConfig => _animalManagerConfig;
+        [SerializeField] private AnimalSpawnConfig _animalSpawnConfig;
+        public AnimalSpawnConfig AnimalSpawnConfig => _animalSpawnConfig;
     }
 }
