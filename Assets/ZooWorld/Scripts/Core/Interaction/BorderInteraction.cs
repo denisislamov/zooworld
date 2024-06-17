@@ -13,7 +13,7 @@ namespace ZooWorld.Core
         
         [SerializeField] private BorderType _borderType;
         
-        public override void Interact(IInteractable interactable, IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
+        public override void InteractWith(IInteractable interactable, IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
         {
             if (interactionType != IInteractable.InteractionType.Trigger)
             {

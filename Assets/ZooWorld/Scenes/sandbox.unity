@@ -622,7 +622,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1676816265}
@@ -923,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9839c9b25b93543ec9e0e1081054a8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animalManager: {fileID: 1789577911}
+  _bootstrap: {fileID: 1789577911}
 --- !u!114 &1789577911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1789577907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ec30853907e4b57bb063429d54e3be8, type: 3}
+  m_Script: {fileID: 11500000, guid: f4db4015a62b54710860ed2dd2e7e868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1942677542

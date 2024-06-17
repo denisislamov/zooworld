@@ -1,3 +1,4 @@
+using UnityEngine;
 using Zenject;
 using ZooWorld.Core;
 using ZooWorld.Core.Configs;
@@ -8,7 +9,7 @@ namespace ZooWorld.Installers
     public class GameInstaller : MonoInstaller<GameInstaller>
     {
         [Inject] private GameSettings _settings;
-        public AnimalManager _animalManager;
+        [SerializeField] private Bootstrap _bootstrap;
         
         public override void InstallBindings()
         {
@@ -25,7 +26,8 @@ namespace ZooWorld.Installers
 
         private void AnimalActorBinding()
         {
-            Container.BindInterfacesAndSelfTo<AnimalManager>().FromInstance(_animalManager).AsSingle();
+            Container.BindInterfacesAndSelfTo<AnimalSpawnSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Bootstrap>().FromInstance(_bootstrap).AsSingle();
             Container.Bind<ActorMovement<ActorMovementConfig>.CustomDiFactory>().AsSingle();
             Container.Bind<UnityEngine.Object>()
                 .FromInstance(_settings.AnimalConfigList.JumpMovementPrefab)
@@ -39,6 +41,7 @@ namespace ZooWorld.Installers
         {
             Container.BindInterfacesAndSelfTo<UiSystem>().AsSingle().NonLazy();
             Container.BindFactory<MainUiView, MainUiModel, MainUiPresenter, MainUiPresenter.Factory>();
+            Container.BindFactory<ActorUiView, ActorInteraction, ActorUiPresenter, ActorUiPresenter.Factory>();
         }
     }
 }

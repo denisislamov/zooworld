@@ -11,28 +11,29 @@ namespace ZooWorld.UI
         private HashSet<ActorUiPresenter> _actorUiPresenters = new();
         private MainUiPresenter _mainUiPresenter;
         private MainUiPresenter.Factory _mainUiPresenterFactory;
+        private ActorUiPresenter.Factory _actorUiPresenterFactory;
         
         private UiSystemSettings _uiSystemSettings;
         
-        public UiSystem(UiSystemSettings uiSystemSettings, MainUiPresenter.Factory mainUiPresenterFactory)
+        public UiSystem(UiSystemSettings uiSystemSettings, MainUiPresenter.Factory mainUiPresenterFactory,
+            ActorUiPresenter.Factory actorUiPresenterFactory)
         {
             _uiSystemSettings = uiSystemSettings;
             _mainUiPresenterFactory = mainUiPresenterFactory;
+            _actorUiPresenterFactory = actorUiPresenterFactory;
         }
         
-        public ActorUiView CreateActorUIView(GameObject target, ActorInteraction actorInteraction)
+        public void CreateActorUIView(GameObject target, ActorInteraction actorInteraction)
         {
             var actorUiView = GameObject.Instantiate(_uiSystemSettings.ActorUiViewPrefab, target.transform);
             var text = actorUiView.GetComponent<TMP_Text>();
             
-            actorUiView.Init(actorInteraction, text);
+            actorUiView.Init(text);
 
-            var actorUiPresenter = new ActorUiPresenter(actorUiView);
+            var actorUiPresenter = _actorUiPresenterFactory.Create(actorUiView, actorInteraction);
             actorUiPresenter.RegisterEvents();
 
             _actorUiPresenters.Add(actorUiPresenter);
-            
-            return actorUiView;
         }
         
         public void CreateMainUiView()
@@ -43,5 +44,7 @@ namespace ZooWorld.UI
             _mainUiPresenter = _mainUiPresenterFactory.Create(mainUiView, mainUiModel);
             _mainUiPresenter.RegisterEvents();
         }
+        
+        
     }
 }

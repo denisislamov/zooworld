@@ -6,6 +6,7 @@ using ZooWorld.UI;
 
 namespace ZooWorld.Core
 {
+    // 
     public class AnimalManager : MonoBehaviour
     {
         private readonly List<ActorMovement<ActorMovementConfig>> _actorMovements = new();
@@ -29,18 +30,18 @@ namespace ZooWorld.Core
             _uiSystem = uiSystem;
         }
 
-        public void Start()
-        {
-            var count = _animalManagerConfig.MaxAnimalCount;
-            for (int i = 0; i < count; i++)
-            {
-                Spawn(Random.Range(0, _animalConfigs.AnimalConfigs.Count));
-            }
+        // public void Start()
+        // {
+        //     var count = _animalManagerConfig.MaxAnimalCount;
+        //     for (int i = 0; i < count; i++)
+        //     {
+        //         Spawn(Random.Range(0, _animalConfigs.AnimalConfigs.Count));
+        //     }
+        //
+        //     _uiSystem.CreateMainUiView();
+        // }
 
-            _uiSystem.CreateMainUiView();
-        }
-        
-        public void Spawn(int index)
+        private void Spawn(int index)
         {
             AnimalConfig animalConfig = _animalConfigs.AnimalConfigs[index];
             ActorMovementConfig actorMovementConfig =  animalConfig.ActorMovementConfig;

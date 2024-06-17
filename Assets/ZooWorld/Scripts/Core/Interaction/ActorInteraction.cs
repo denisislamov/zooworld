@@ -7,7 +7,6 @@ namespace ZooWorld.Core
     public class ActorInteraction : MonoBehaviour, IInteractable
     {
         [Inject] protected InteractionsSystem InteractionsSystem;
-        public event System.Action<IInteractable, IInteractable.InteractionType> OnInteract = (_, _) => { };
         
         private void OnCollisionEnter(Collision collision)
         {
@@ -16,8 +15,8 @@ namespace ZooWorld.Core
                 return;
             }
             
-            Interact(interactable, IInteractable.InteractionType.Collider);
-            OnInteract(interactable, IInteractable.InteractionType.Collider);
+            InteractWith(interactable, IInteractable.InteractionType.Collider);
+            InteractionsSystem.InvokeOnInteract(this, IInteractable.InteractionType.Collider);
         }
         
         private void OnTriggerEnter(Collider other)
@@ -27,11 +26,11 @@ namespace ZooWorld.Core
                 return;
             }
             
-            Interact(interactable,  IInteractable.InteractionType.Trigger);
-            OnInteract(interactable, IInteractable.InteractionType.Collider);
+            InteractWith(interactable,  IInteractable.InteractionType.Trigger);
+            InteractionsSystem.InvokeOnInteract(this, IInteractable.InteractionType.Trigger);
         }
 
-        public virtual void Interact(IInteractable interactable,
+        public virtual void InteractWith(IInteractable interactable,
             IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
         {
         }

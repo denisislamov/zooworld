@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4481567467404f7bbbbd637981d7fefe, type: 3}
   m_Name: AnimalManagerConfig
   m_EditorClassIdentifier: 
-  SpawnRadius: 10
+  SpawnBoxSize: 10
   SpawnHeight: 0.5
-  MaxAnimalCount: 50
+  MaxAnimalCount: 20

@@ -9,6 +9,6 @@ namespace ZooWorld.Core.Interfaces
          Collider,
          Trigger
       }
-      void Interact(IInteractable interactable, InteractionType interactionType = InteractionType.None);
+      void InteractWith(IInteractable interactable, InteractionType interactionType = InteractionType.None);
    }
 }

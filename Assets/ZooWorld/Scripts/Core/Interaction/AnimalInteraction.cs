@@ -27,7 +27,7 @@ namespace ZooWorld.Core
             _collider = GetComponent<Collider>();
         }
 
-        public override void Interact(IInteractable interactable, 
+        public override void InteractWith(IInteractable interactable, 
             IInteractable.InteractionType interactionType = IInteractable.InteractionType.None)
         {
             if (interactionType != IInteractable.InteractionType.Collider ||
