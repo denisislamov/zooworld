@@ -45,14 +45,16 @@ namespace ZooWorld.Core
             if (actorInteraction.gameObject.CompareTag(Constants.PreyTag))
             {
                 actorInteraction.gameObject.SetActive(false);
+                InteractionsSystem.InvokeOnDisableGo(actorInteraction.gameObject);
                 return;
             }
             
             if (actorInteraction.gameObject.CompareTag(Constants.PredatorTag))
             {
-                if (_interactionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
+                if (!_interactionsSystem.IsAlreadyInteracted(gameObject, actorInteraction))
                 {
                     actorInteraction.gameObject.SetActive(false);
+                    InteractionsSystem.InvokeOnDisableGo(actorInteraction.gameObject);
                 }
             }
         }

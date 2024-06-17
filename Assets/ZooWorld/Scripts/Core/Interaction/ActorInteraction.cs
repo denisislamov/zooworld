@@ -6,6 +6,7 @@ namespace ZooWorld.Core
 {
     public class ActorInteraction : MonoBehaviour, IInteractable
     {
+        [Inject] protected IInteractionsSystem InteractionsSystem;
         public event System.Action<IInteractable, IInteractable.InteractionType> OnInteract = (_, _) => { };
         
         private void OnCollisionEnter(Collision collision)

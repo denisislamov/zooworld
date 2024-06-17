@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 using ZooWorld.Core;
 using ZooWorld.Core.Configs;
+using ZooWorld.UI;
 
 namespace ZooWorld.Installers
 {
@@ -13,6 +14,7 @@ namespace ZooWorld.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<UiSystem>().AsSingle().NonLazy();
             Container.Bind<IInteractionsSystem>().To<InteractionsSystem>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<AnimalManager>().FromInstance(_animalManager).AsSingle();
@@ -26,6 +28,7 @@ namespace ZooWorld.Installers
                 .WhenInjectedInto<ActorMovement<ActorMovementConfig>.CustomDiFactory>();
 
             Container.BindFactory<ActorInteraction, ActorInteraction.Factory>();
+            Container.BindFactory<MainUiView, MainUiModel, MainUiPresenter, MainUiPresenter.Factory>();
         }
     }
     

@@ -15,3 +15,4 @@ MonoBehaviour:
   _gameSettings:
     _animalConfigList: {fileID: 11400000, guid: 0be1a2a97c0814f458e4f72e0f7f792f, type: 2}
     _animalManagerConfig: {fileID: 11400000, guid: 5cc5798c7a2bf489ca7445787690c940, type: 2}
+  _uiSystemSettings: {fileID: 11400000, guid: a549867f86a5f47fcb28c0690a4ccd7e, type: 2}

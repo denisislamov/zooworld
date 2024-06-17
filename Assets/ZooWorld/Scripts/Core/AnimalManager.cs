@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using ZooWorld.Core.Configs;
+using ZooWorld.UI;
 
 namespace ZooWorld.Core
 {
@@ -15,16 +16,18 @@ namespace ZooWorld.Core
         private AnimalManagerConfig _animalManagerConfig;
         
         private ActorInteraction.Factory _actorInteractionFactory;
+        private UiSystem _uiSystem;
         
         [Inject]
         public void Construct(ActorMovement<ActorMovementConfig>.CustomDiFactory actorMovementsFactory, 
             AnimalManagerConfig animalManagerConfig, AnimalConfigList animalConfigs, 
-            ActorInteraction.Factory actorInteractionFactory)
+            ActorInteraction.Factory actorInteractionFactory, UiSystem uiSystem)
         {
             _actorMovementsFactory = actorMovementsFactory;
             _animalManagerConfig = animalManagerConfig;
             _animalConfigs = animalConfigs;
             _actorInteractionFactory = actorInteractionFactory;
+            _uiSystem = uiSystem;
         }
         
         public IEnumerable<ActorMovement<ActorMovementConfig>> ActorMovements => _actorMovements;
@@ -36,6 +39,8 @@ namespace ZooWorld.Core
             {
                 Spawn(Random.Range(0, _animalConfigs.AnimalConfigs.Count));
             }
+
+            _uiSystem.CreateMainUiView();
         }
         
         public void Spawn(int index)
@@ -72,8 +77,14 @@ namespace ZooWorld.Core
                 AnimalConfig.AnimalType.Predator => Constants.PredatorTag,
                 _ => actorMovement.gameObject.tag
             };
-            _actorInteractionFactory.Create<AnimalInteraction>(actorMovement.gameObject);
             
+            var actorInteraction = _actorInteractionFactory.Create<AnimalInteraction>(actorMovement.gameObject);
+
+            if (animalConfig.Type == AnimalConfig.AnimalType.Predator)
+            {
+                _uiSystem.CreateActorUIView(actorMovement.gameObject, actorInteraction);
+            }
+
             _actorMovements.Add(actorMovement);
         }
     }
