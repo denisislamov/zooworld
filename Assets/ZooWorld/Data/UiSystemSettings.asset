@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a881ef2c7c45dfbe99a5b1d48e1ef1, type: 3}
+  m_Name: UiSystemSettings
+  m_EditorClassIdentifier: 
+  ActorUiViewPrefab: {fileID: 7683327127404319810, guid: d3c5cac5abdfb4012952277cf6315946, type: 3}
+  MainUiViewPrefab: {fileID: 7427825554763028557, guid: f2069055200d44dcfb578b1196f83321, type: 3}
